@@ -1,6 +1,6 @@
 #include "TcpSocket.h"
 
-constexpr int PORT = 32196;
+constexpr int PORT = 36529;
 
 #pragma warning(push)
 #pragma warning(disable : 5245)
@@ -175,7 +175,7 @@ bool TcpClient::ConnectServerSocket()
 	struct sockaddr_in addr{};
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(PORT);
-	inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr.S_un.S_addr);
+	inet_pton(AF_INET, "115.236.153.170", &addr.sin_addr.S_un.S_addr);
 
 	if (-1 == connect(m_fd, (sockaddr *)&addr, sizeof(addr)))
 	{
@@ -195,7 +195,7 @@ void TcpClient::ClientWorking() noexcept
 	return;
 }
 
-int TcpClient::work() noexcept
+int TcpClient::work()
 {
 	if (!CreateSocket())
 	{
