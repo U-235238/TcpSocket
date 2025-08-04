@@ -52,7 +52,7 @@ namespace
 class TcpServer : protected TcpSocket
 {
 protected:
-	TcpServer() noexcept = delete;
+	TcpServer(int argc, char** argv) noexcept;
 	~TcpServer() = default;
 	TcpServer(TcpServer&&) = delete;
 	TcpServer(const TcpServer&) = delete;
@@ -69,7 +69,7 @@ protected:
 	virtual void ShowError(const char* msg) const noexcept = 0;
 
 public:
-	bool work(const int clientNumber);
+	int work(const int clientNumber);
 
 protected:
 	virtual void server(int argc, char** argv) = 0;
@@ -78,7 +78,7 @@ protected:
 class TcpClient : protected TcpSocket
 {
 protected:
-	TcpClient() noexcept = delete;
+	TcpClient(int argc, char** argv) noexcept;
 	~TcpClient() = default;
 	TcpClient(TcpClient&&) = delete;
 	TcpClient(const TcpClient&) = delete;
@@ -93,7 +93,7 @@ protected:
 	virtual void ShowError(const char* msg) const noexcept = 0;
 
 public:
-	bool work() noexcept;
+	int work() noexcept;
 
 protected:
 	virtual void client(int argc, char** argv) = 0;
