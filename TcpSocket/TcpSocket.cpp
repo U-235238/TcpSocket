@@ -82,6 +82,12 @@ bool TcpSocket::SendMsg(const SOCKET fd, const char *msg) const noexcept
 	return true;
 }
 
+TcpServer::TcpServer(int argc, char** argv)
+	: TcpSocket(argc, argv)
+{
+
+}
+
 bool TcpServer::BindSocket() const noexcept
 {
 	sockaddr_in saddr{};
@@ -137,25 +143,31 @@ void TcpServer::ServerWorking(SOCKET cfd) noexcept
 	return;
 }
 
-bool TcpServer::work(const int clientNumber)
+int TcpServer::work(const int clientNumber)
 {
 	if (!CreateSocket())
 	{
-		return false;
+		return -1;
 	}
 	if (!BindSocket())
 	{
-		return false;
+		return -1;
 	}
 	if (!ListenSocket(clientNumber))
 	{
-		return false;
+		return -1;
 	}
 	if (!AcceptConnect())
 	{
-		return false;
+		return -1;
 	}
-	return true;
+	return 0;
+}
+
+TcpClient::TcpClient(int argc, char** argv)
+	: TcpSocket(argc, argv)
+{
+
 }
 
 bool TcpClient::ConnectServerSocket()
@@ -183,17 +195,17 @@ void TcpClient::ClientWorking() noexcept
 	return;
 }
 
-bool TcpClient::work() noexcept
+int TcpClient::work() noexcept
 {
 	if (!CreateSocket())
 	{
-		return false;
+		return -1;
 	}
 	if (!ConnectServerSocket())
 	{
-		return false;
+		return -1;
 	}
-	return true;
+	return 0;
 }
 
 TcpSocket::TcpSocket(int argc, char** argv) noexcept
