@@ -93,7 +93,7 @@ protected:
 	virtual void ShowError(const char* msg) const noexcept = 0;
 
 public:
-	int work() noexcept;
+	int work();
 
 protected:
 	virtual void client(int argc, char** argv) = 0;
